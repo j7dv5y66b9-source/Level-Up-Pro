@@ -1,13 +1,6 @@
-LEVEL UP PRO V1.1
+LEVEL UP PRO X - VERSION 2.0
 
-New in this version:
-- Level Up logo added to the app and quotation printout
-- Customer database saved on the device
-- Saved quote list saved on the device
-- Professional print/PDF quote layout
-- Dashboard showing customer count, saved quotes and quote value
-
-Upload/replace these files in GitHub:
+Upload these files to the root of your GitHub repository and replace the old files:
 - index.html
 - app.js
 - styles.css
@@ -16,5 +9,6 @@ Upload/replace these files in GitHub:
 - README.txt
 - assets/logo.jpeg
 
-Important:
-If GitHub does not upload folders from your iPhone, create an assets folder in GitHub and upload logo.jpeg inside it.
+After committing, wait 1-3 minutes. If your iPhone still shows the old app, open the site with ?v=2.0.0 on the end once, or remove and re-add it to your Home Screen.
+
+Data is saved in the browser on that device using localStorage.

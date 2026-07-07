@@ -3,143 +3,166 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#111827" />
-  <title>Level Up Pro</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="theme-color" content="#101828" />
+  <title>Level Up Pro X</title>
+  <link rel="manifest" href="manifest.json?v=2.0.0">
+  <link rel="stylesheet" href="styles.css?v=2.0.0" />
 </head>
 <body>
-  <header class="app-header no-print">
-    <div class="brand">
-      <img src="assets/logo.jpeg" alt="Level Up Property Renovation logo" />
-      <div>
-        <h1>Level Up Pro</h1>
-        <p>Quotes • Customers • Jobs</p>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo.jpeg" alt="Level Up Property Renovation logo" />
+        <div>
+          <strong>Level Up Pro X</strong>
+          <span>Business OS v2.0</span>
+        </div>
       </div>
-    </div>
-    <button class="ghost" id="installBtn" hidden>Install</button>
-  </header>
-
-  <nav class="tabs no-print">
-    <button class="tab active" data-tab="dashboard">Dashboard</button>
-    <button class="tab" data-tab="customers">Customers</button>
-    <button class="tab" data-tab="quote">New Quote</button>
-    <button class="tab" data-tab="quotes">Saved Quotes</button>
-  </nav>
-
-  <main>
-    <section id="dashboard" class="panel active">
-      <div class="grid cards">
-        <article class="stat"><span>Saved Customers</span><strong id="customerCount">0</strong></article>
-        <article class="stat"><span>Saved Quotes</span><strong id="quoteCount">0</strong></article>
-        <article class="stat"><span>Quote Value</span><strong id="quoteValue">£0</strong></article>
-        <article class="stat"><span>Latest Quote</span><strong id="latestQuote">None</strong></article>
+      <nav>
+        <button class="nav active" data-page="dashboard">🏠 Dashboard</button>
+        <button class="nav" data-page="quotes">📋 Quotes</button>
+        <button class="nav" data-page="customers">👤 Customers</button>
+        <button class="nav" data-page="jobs">📁 Jobs</button>
+        <button class="nav" data-page="invoices">💷 Invoices</button>
+        <button class="nav" data-page="materials">📦 Materials</button>
+        <button class="nav" data-page="settings">⚙️ Settings</button>
+      </nav>
+      <div class="side-foot">
+        <strong>Level Up Property Renovation</strong><br>
+        07701 369715<br>
+        info@levelup-propertyrenovation.co.uk
       </div>
-      <article class="card">
-        <h2>Quick Start</h2>
-        <ol>
-          <li>Add a customer.</li>
-          <li>Create a quote.</li>
-          <li>Save the quote.</li>
-          <li>Tap Print / PDF to send it to the customer.</li>
-        </ol>
-      </article>
-    </section>
+    </aside>
 
-    <section id="customers" class="panel">
-      <article class="card">
-        <h2>Add Customer</h2>
-        <div class="form-grid">
-          <label>Customer Name<input id="custName" placeholder="Customer name"></label>
-          <label>Phone<input id="custPhone" placeholder="Phone number"></label>
-          <label>Email<input id="custEmail" placeholder="Email address"></label>
-          <label>Address<input id="custAddress" placeholder="Project / home address"></label>
-        </div>
-        <label>Notes<textarea id="custNotes" placeholder="Access, parking, job notes..."></textarea></label>
-        <div class="actions"><button onclick="saveCustomer()">Save Customer</button><button class="secondary" onclick="clearCustomerForm()">Clear</button></div>
-      </article>
-      <article class="card">
-        <h2>Customer List</h2>
-        <div id="customerList" class="list"></div>
-      </article>
-    </section>
+    <main>
+      <header class="mobile-head">
+        <img src="assets/logo.jpeg" alt="Logo" />
+        <div><strong>Level Up Pro X</strong><span>v2.0</span></div>
+      </header>
 
-    <section id="quote" class="panel">
-      <article class="card no-print">
-        <h2>Quote Builder</h2>
-        <div class="form-grid">
-          <label>Quote No.<input id="quoteNo"></label>
-          <label>Customer<select id="quoteCustomer"></select></label>
-          <label>Job Type<select id="jobType"><option>Single Storey Extension</option><option>Bathroom Renovation</option><option>Kitchen Renovation</option><option>General Renovation</option><option>Insurance Repair</option></select></label>
-          <label>Project Address<input id="projectAddress" placeholder="Site address"></label>
-          <label>Length (m)<input type="number" id="length" value="3.5" step="0.1"></label>
-          <label>Width (m)<input type="number" id="width" value="3" step="0.1"></label>
-          <label>Base Rate £/m²<input type="number" id="rate" value="3200" step="50"></label>
-          <label>Structural / Contingency £<input type="number" id="contingency" value="2296" step="50"></label>
-          <label>Overhead %<input type="number" id="overhead" value="10" step="1"></label>
-          <label>Profit %<input type="number" id="profit" value="15" step="1"></label>
-          <label>VAT %<input type="number" id="vat" value="0" step="1"></label>
-          <label>Status<select id="quoteStatus"><option>Draft</option><option>Sent</option><option>Accepted</option><option>Declined</option></select></label>
+      <section id="dashboard" class="page active">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">Welcome back</p>
+            <h1>Run Level Up from one place.</h1>
+            <p>Quotes, customers, jobs, invoices and material calculators — saved on this device.</p>
+          </div>
+          <button class="primary" onclick="go('quotes');newQuote()">+ New Quote</button>
         </div>
-        <label>Scope of Works<textarea id="scope">Construction of a 3.5m x 3.0m single-storey rear extension including foundations, slab, brick and block cavity walls, insulation, flat warm roof, windows/doors, plastering, electrics, plumbing allowance, decoration and finishing.</textarea></label>
-        <label>Exclusions<textarea id="exclusions">Planning fees, structural engineer fees, kitchen supply/installation, floor finishes, unforeseen ground conditions, utility diversions, party wall matters and any works not specifically listed above.</textarea></label>
-        <div class="actions">
-          <button onclick="calculate()">Calculate</button>
-          <button onclick="saveQuote()">Save Quote</button>
-          <button class="secondary" onclick="printQuote()">Print / PDF</button>
-          <button class="secondary" onclick="resetQuote()">New Blank Quote</button>
+        <div class="stats">
+          <div class="stat"><span>Quote Value</span><strong id="statQuotes">£0</strong></div>
+          <div class="stat"><span>Customers</span><strong id="statCustomers">0</strong></div>
+          <div class="stat"><span>Active Jobs</span><strong id="statJobs">0</strong></div>
+          <div class="stat"><span>Invoices Due</span><strong id="statInvoices">£0</strong></div>
         </div>
-      </article>
+        <div class="two-col">
+          <div class="panel"><h2>Recent Quotes</h2><div id="recentQuotes" class="list empty">No quotes yet.</div></div>
+          <div class="panel"><h2>Today’s Quick Actions</h2><div class="action-grid">
+            <button onclick="go('customers');newCustomer()">Add Customer</button>
+            <button onclick="go('quotes');newQuote()">Create Quote</button>
+            <button onclick="go('invoices');newInvoice()">Raise Invoice</button>
+            <button onclick="go('materials')">Materials Calc</button>
+          </div></div>
+        </div>
+      </section>
 
-      <article class="quote-document" id="quoteDocument">
-        <div class="doc-top">
-          <img src="assets/logo.jpeg" alt="Level Up Property Renovation logo" />
-          <div class="doc-contact">
-            <strong>Level Up Property Renovation</strong><br>
-            07701 369715<br>
-            info@levelup-propertyrenovation.co.uk
+      <section id="quotes" class="page">
+        <div class="page-head"><h1>Quote Builder</h1><button class="primary" onclick="newQuote()">+ New Quote</button></div>
+        <div class="quote-grid">
+          <form class="panel" id="quoteForm" onsubmit="event.preventDefault();saveQuote()">
+            <h2>Job Details</h2>
+            <input type="hidden" id="quoteId" />
+            <label>Quote No.<input id="quoteNo" /></label>
+            <label>Customer<select id="quoteCustomer"></select></label>
+            <label>Project Address<input id="projectAddress" placeholder="Address" /></label>
+            <label>Job Type<select id="jobType"><option>Single Storey Extension</option><option>Bathroom Renovation</option><option>Kitchen Renovation</option><option>General Renovation</option><option>Insurance Repair</option><option>Other</option></select></label>
+            <div class="form-row"><label>Length (m)<input id="length" type="number" step="0.01" value="3.5" /></label><label>Width (m)<input id="width" type="number" step="0.01" value="3" /></label></div>
+            <div class="form-row"><label>Base Rate £/m²<input id="rate" type="number" value="3200" /></label><label>VAT %<input id="vat" type="number" value="0" /></label></div>
+            <div class="form-row"><label>Overhead %<input id="overhead" type="number" value="10" /></label><label>Profit %<input id="profit" type="number" value="15" /></label></div>
+            <label>Scope<textarea id="scope">Construction of a single-storey rear extension including foundations, slab, brick and block cavity walls, insulation, warm roof, windows/doors allowance, plastering, electrics, plumbing allowance, decoration and finishing.</textarea></label>
+            <label>Exclusions<textarea id="exclusions">Planning fees, structural engineer fees, kitchen supply, flooring, unforeseen ground conditions, utility diversions and works not listed above.</textarea></label>
+            <div class="buttons"><button type="button" onclick="calculateQuote()">Calculate</button><button class="primary" type="submit">Save Quote</button><button type="button" onclick="printQuote()">PDF / Print</button></div>
+          </form>
+
+          <div class="panel quote-preview" id="quotePreview">
+            <div class="quote-top"><img src="assets/logo.jpeg" alt="Logo"><div><h2>Quotation</h2><p id="previewQuoteNo">QU-0001</p></div></div>
+            <div class="preview-row"><span>Customer</span><strong id="previewCustomer">—</strong></div>
+            <div class="preview-row"><span>Project</span><strong id="previewProject">Single Storey Extension</strong></div>
+            <div class="summary-cards"><div><span>Area</span><strong id="areaOut">10.50 m²</strong></div><div><span>Total ex VAT</span><strong id="exVatOut">£42,504</strong></div><div><span>Total inc VAT</span><strong id="incVatOut">£42,504</strong></div></div>
+            <table><tbody id="breakdownBody"></tbody></table>
+            <h3>Payment Schedule</h3><table><tbody id="paymentsBody"></tbody></table>
+            <h3>Scope of Works</h3><p id="previewScope"></p>
+            <h3>Exclusions</h3><p id="previewExclusions"></p>
           </div>
         </div>
-        <h2>Quotation</h2>
-        <div class="doc-grid">
-          <div><span>Quote No.</span><strong id="docQuoteNo">QU-0001</strong></div>
-          <div><span>Date</span><strong id="docDate"></strong></div>
-          <div><span>Customer</span><strong id="docCustomer">Not selected</strong></div>
-          <div><span>Project</span><strong id="docJobType">Single Storey Extension</strong></div>
-          <div class="span2"><span>Address</span><strong id="docAddress">—</strong></div>
+        <div class="panel"><h2>Saved Quotes</h2><div id="quotesList" class="list empty">No quotes saved yet.</div></div>
+      </section>
+
+      <section id="customers" class="page">
+        <div class="page-head"><h1>Customers</h1><button class="primary" onclick="newCustomer()">+ New Customer</button></div>
+        <form class="panel" onsubmit="event.preventDefault();saveCustomer()">
+          <input type="hidden" id="customerId" />
+          <div class="form-row"><label>Name<input id="customerName" placeholder="Customer name" /></label><label>Phone<input id="customerPhone" placeholder="Phone" /></label></div>
+          <div class="form-row"><label>Email<input id="customerEmail" placeholder="Email" /></label><label>Address<input id="customerAddress" placeholder="Address" /></label></div>
+          <label>Notes<textarea id="customerNotes" placeholder="Gate codes, preferences, previous work, etc."></textarea></label>
+          <button class="primary" type="submit">Save Customer</button>
+        </form>
+        <div class="panel"><h2>Customer List</h2><div id="customersList" class="list empty">No customers saved yet.</div></div>
+      </section>
+
+      <section id="jobs" class="page">
+        <div class="page-head"><h1>Jobs</h1><button class="primary" onclick="newJob()">+ New Job</button></div>
+        <form class="panel" onsubmit="event.preventDefault();saveJob()">
+          <input type="hidden" id="jobId" />
+          <div class="form-row"><label>Job Name<input id="jobName" placeholder="Smith bathroom" /></label><label>Status<select id="jobStatus"><option>Lead</option><option>Quoted</option><option>Accepted</option><option>In Progress</option><option>Completed</option><option>On Hold</option></select></label></div>
+          <div class="form-row"><label>Start Date<input id="jobStart" type="date" /></label><label>Value (£)<input id="jobValue" type="number" /></label></div>
+          <label>Notes<textarea id="jobNotes" placeholder="Programme, access, materials, snags..."></textarea></label>
+          <button class="primary" type="submit">Save Job</button>
+        </form>
+        <div class="panel"><h2>Job Board</h2><div id="jobsList" class="list empty">No jobs saved yet.</div></div>
+      </section>
+
+      <section id="invoices" class="page">
+        <div class="page-head"><h1>Invoices</h1><button class="primary" onclick="newInvoice()">+ New Invoice</button></div>
+        <form class="panel" onsubmit="event.preventDefault();saveInvoice()">
+          <input type="hidden" id="invoiceId" />
+          <div class="form-row"><label>Invoice No.<input id="invoiceNo" /></label><label>Customer<input id="invoiceCustomer" /></label></div>
+          <div class="form-row"><label>Stage<input id="invoiceStage" placeholder="Deposit / roof complete / final" /></label><label>Amount (£)<input id="invoiceAmount" type="number" /></label></div>
+          <div class="form-row"><label>Due Date<input id="invoiceDue" type="date" /></label><label>Paid?<select id="invoicePaid"><option>No</option><option>Yes</option><option>Part Paid</option></select></label></div>
+          <button class="primary" type="submit">Save Invoice</button>
+        </form>
+        <div class="panel"><h2>Invoice Tracker</h2><div id="invoicesList" class="list empty">No invoices saved yet.</div></div>
+      </section>
+
+      <section id="materials" class="page">
+        <div class="page-head"><h1>Materials Calculator</h1></div>
+        <div class="two-col">
+          <div class="panel"><h2>Concrete / Screed</h2><div class="form-row"><label>Area m²<input id="matArea" type="number" value="40"></label><label>Thickness mm<input id="matThick" type="number" value="75"></label></div><button onclick="calcMaterials()">Calculate</button><div id="matResult" class="result"></div></div>
+          <div class="panel"><h2>Tiling Adhesive</h2><div class="form-row"><label>Area m²<input id="tileArea" type="number" value="20"></label><label>Coverage m²/bag<input id="tileCoverage" type="number" value="5"></label></div><button onclick="calcTiles()">Calculate</button><div id="tileResult" class="result"></div></div>
         </div>
-        <h3>Project Summary</h3>
-        <p id="docScope"></p>
-        <h3>Cost Summary</h3>
-        <table>
-          <tbody>
-            <tr><th>Area</th><td id="docArea">0 m²</td></tr>
-            <tr><th>Direct Cost</th><td id="docDirect">£0</td></tr>
-            <tr><th>Structural / Contingency</th><td id="docContingency">£0</td></tr>
-            <tr><th>Overheads</th><td id="docOverhead">£0</td></tr>
-            <tr><th>Profit</th><td id="docProfit">£0</td></tr>
-            <tr class="total"><th>Total Ex VAT</th><td id="docExVat">£0</td></tr>
-            <tr><th>VAT</th><td id="docVat">£0</td></tr>
-            <tr class="grand"><th>Total Inc VAT</th><td id="docIncVat">£0</td></tr>
-          </tbody>
-        </table>
-        <h3>Payment Schedule</h3>
-        <table id="paymentTable"><thead><tr><th>Stage</th><th>%</th><th>Amount</th></tr></thead><tbody></tbody></table>
-        <h3>Exclusions</h3>
-        <p id="docExclusions"></p>
-        <h3>Acceptance</h3>
-        <div class="acceptance"><div>Customer Signature:</div><div>Date:</div></div>
-      </article>
-    </section>
+      </section>
 
-    <section id="quotes" class="panel">
-      <article class="card">
-        <h2>Saved Quotes</h2>
-        <div id="quoteList" class="list"></div>
-      </article>
-    </section>
-  </main>
+      <section id="settings" class="page">
+        <div class="page-head"><h1>Settings</h1></div>
+        <form class="panel" onsubmit="event.preventDefault();saveSettings()">
+          <h2>Business Defaults</h2>
+          <div class="form-row"><label>Business Name<input id="settingBusiness" /></label><label>Phone<input id="settingPhone" /></label></div>
+          <label>Email<input id="settingEmail" /></label>
+          <div class="form-row"><label>Default Overhead %<input id="settingOverhead" type="number" /></label><label>Default Profit %<input id="settingProfit" type="number" /></label></div>
+          <button class="primary" type="submit">Save Settings</button>
+          <button type="button" class="danger" onclick="clearAllData()">Clear App Data</button>
+        </form>
+      </section>
+    </main>
 
-  <script src="app.js"></script>
+    <nav class="bottom-nav">
+      <button class="nav active" data-page="dashboard">🏠<span>Home</span></button>
+      <button class="nav" data-page="quotes">📋<span>Quotes</span></button>
+      <button class="nav" data-page="customers">👤<span>Customers</span></button>
+      <button class="nav" data-page="jobs">📁<span>Jobs</span></button>
+      <button class="nav" data-page="invoices">💷<span>Money</span></button>
+    </nav>
+  </div>
+  <script src="app.js?v=2.0.0"></script>
 </body>
 </html>
