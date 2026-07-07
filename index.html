@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Level Up Pro</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Level Up Pro</h1>
+      <p>Property renovation estimating & quote builder</p>
+    </div>
+    <div class="contact">
+      <strong>Level Up Property Renovation</strong><br>
+      07701 369715<br>
+      info@levelup-propertyrenovation.co.uk
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="card">
+      <h2>Job Details</h2>
+      <label>Quote No.<input id="quoteNo" value="QU-2026-001"></label>
+      <label>Client Name<input id="clientName" placeholder="Customer name"></label>
+      <label>Project Address<input id="projectAddress" placeholder="Project address"></label>
+      <label>Job Type
+        <select id="jobType">
+          <option>Single Storey Extension</option>
+          <option>Bathroom Renovation</option>
+          <option>Kitchen Renovation</option>
+          <option>General Renovation</option>
+          <option>Insurance Repair</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>Extension Estimator</h2>
+      <div class="grid">
+        <label>Length (m)<input type="number" id="length" value="3.5" step="0.1"></label>
+        <label>Width (m)<input type="number" id="width" value="3" step="0.1"></label>
+        <label>Base rate £/m²<input type="number" id="rate" value="3200"></label>
+        <label>Overhead %<input type="number" id="overhead" value="10"></label>
+        <label>Profit %<input type="number" id="profit" value="15"></label>
+        <label>VAT %<input type="number" id="vat" value="0"></label>
+      </div>
+      <button onclick="calculate()">Calculate Quote</button>
+    </section>
+
+    <section class="card wide">
+      <h2>Quote Summary</h2>
+      <div class="summary">
+        <div><span>Area</span><strong id="areaOut">10.5 m²</strong></div>
+        <div><span>Direct Cost</span><strong id="directOut">£33,600</strong></div>
+        <div><span>Overheads</span><strong id="overheadOut">£3,360</strong></div>
+        <div><span>Profit</span><strong id="profitOut">£5,544</strong></div>
+        <div><span>Total Ex VAT</span><strong id="exVatOut">£42,504</strong></div>
+        <div><span>Total Inc VAT</span><strong id="incVatOut">£42,504</strong></div>
+      </div>
+
+      <h3>Scope of Works</h3>
+      <textarea id="scope">Construction of a 3.5m x 3.0m single-storey rear extension including foundations, slab, brick and block cavity walls, insulation, flat warm roof, windows/doors, plastering, electrics, plumbing allowance, decoration and finishing.</textarea>
+
+      <h3>Payment Schedule</h3>
+      <table id="paymentTable">
+        <tr><th>Stage</th><th>%</th><th>Amount</th></tr>
+        <tr><td>Deposit</td><td>10%</td><td id="p1"></td></tr>
+        <tr><td>Foundations Complete</td><td>20%</td><td id="p2"></td></tr>
+        <tr><td>Walls to Wall Plate</td><td>20%</td><td id="p3"></td></tr>
+        <tr><td>Roof Watertight</td><td>20%</td><td id="p4"></td></tr>
+        <tr><td>First Fix & Plastering</td><td>20%</td><td id="p5"></td></tr>
+        <tr><td>Completion</td><td>10%</td><td id="p6"></td></tr>
+      </table>
+
+      <div class="actions">
+        <button onclick="window.print()">Save / Print PDF</button>
+        <button onclick="saveJob()">Save Job</button>
+        <button onclick="loadJobs()">Load Saved Jobs</button>
+      </div>
+    </section>
+
+    <section class="card wide">
+      <h2>Saved Jobs</h2>
+      <div id="savedJobs">No saved jobs loaded yet.</div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
