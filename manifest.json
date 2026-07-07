@@ -1,7 +1,7 @@
 {
-  "name": "Level Up Pro X",
+  "name": "Level Up Pro",
   "short_name": "Level Up Pro",
-  "start_url": "index.html?v=3.0.0",
+  "start_url": "index.html?v=4.0.0",
   "display": "standalone",
   "background_color": "#061426",
   "theme_color": "#061426",
