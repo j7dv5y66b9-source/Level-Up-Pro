@@ -1,1 +1,15 @@
-{"name":"Level Up Pro X","short_name":"Level Up Pro","start_url":"./index.html?v=2.0.0","display":"standalone","background_color":"#f4f7fb","theme_color":"#101828","icons":[]}
+{
+  "name": "Level Up Pro X",
+  "short_name": "Level Up Pro",
+  "start_url": "index.html?v=3.0.0",
+  "display": "standalone",
+  "background_color": "#061426",
+  "theme_color": "#061426",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

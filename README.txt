@@ -1,14 +1,17 @@
-LEVEL UP PRO X - VERSION 2.0
+# Level Up Pro X V3
 
-Upload these files to the root of your GitHub repository and replace the old files:
+Upload these files to the root of your GitHub repository:
+
 - index.html
 - app.js
 - styles.css
 - manifest.json
 - service-worker.js
+- logo.png
 - README.txt
-- assets/logo.jpeg
 
-After committing, wait 1-3 minutes. If your iPhone still shows the old app, open the site with ?v=2.0.0 on the end once, or remove and re-add it to your Home Screen.
+After committing, wait 1-2 minutes, then open:
 
-Data is saved in the browser on that device using localStorage.
+https://j7dv5y66b9-source.github.io/Level-Up-Pro/?v=3.0.0
+
+Then re-add to Home Screen if iOS still shows the old version.

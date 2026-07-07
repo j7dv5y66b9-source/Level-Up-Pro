@@ -2,167 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#101828" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#061426" />
   <title>Level Up Pro X</title>
-  <link rel="manifest" href="manifest.json?v=2.0.0">
-  <link rel="stylesheet" href="styles.css?v=2.0.0" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div id="app">
     <aside class="sidebar">
       <div class="brand">
-        <img src="assets/logo.jpeg" alt="Level Up Property Renovation logo" />
+        <img src="logo.png" alt="Level Up logo" class="brand-logo" />
         <div>
-          <strong>Level Up Pro X</strong>
-          <span>Business OS v2.0</span>
+          <div class="brand-title">LEVEL UP</div>
+          <div class="brand-pro">PRO</div>
+          <div class="brand-sub">PROPERTY RENOVATION</div>
         </div>
       </div>
-      <nav>
-        <button class="nav active" data-page="dashboard">🏠 Dashboard</button>
-        <button class="nav" data-page="quotes">📋 Quotes</button>
-        <button class="nav" data-page="customers">👤 Customers</button>
-        <button class="nav" data-page="jobs">📁 Jobs</button>
-        <button class="nav" data-page="invoices">💷 Invoices</button>
-        <button class="nav" data-page="materials">📦 Materials</button>
-        <button class="nav" data-page="settings">⚙️ Settings</button>
+
+      <nav class="nav">
+        <button class="nav-btn active" data-page="dashboard">🏠 <span>Dashboard</span></button>
+        <button class="nav-btn" data-page="customers">👥 <span>Customers</span></button>
+        <button class="nav-btn" data-page="quotes">📄 <span>Quotes</span></button>
+        <button class="nav-btn" data-page="jobs">📋 <span>Jobs</span></button>
+        <button class="nav-btn" data-page="invoices">💷 <span>Invoices</span></button>
+        <button class="nav-btn" data-page="materials">📦 <span>Materials</span></button>
+        <button class="nav-btn" data-page="settings">⚙️ <span>Settings</span></button>
       </nav>
-      <div class="side-foot">
-        <strong>Level Up Property Renovation</strong><br>
-        07701 369715<br>
-        info@levelup-propertyrenovation.co.uk
+
+      <div class="company-card">
+        <strong>LEVEL UP</strong><br>
+        <span>PROPERTY RENOVATION</span>
+        <p>📞 07701 369715</p>
+        <p>✉️ info@levelup-propertyrenovation.co.uk</p>
       </div>
     </aside>
 
-    <main>
-      <header class="mobile-head">
-        <img src="assets/logo.jpeg" alt="Logo" />
-        <div><strong>Level Up Pro X</strong><span>v2.0</span></div>
+    <main class="main">
+      <header class="top">
+        <button id="menuBtn" class="icon-btn">☰</button>
+        <div>
+          <h1 id="pageTitle">Good evening, Callum 👋</h1>
+          <p id="pageSub">Here’s what’s happening with your business today.</p>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn">🔎</button>
+          <button class="icon-btn">🔔</button>
+          <button class="add-btn" id="quickQuote">+</button>
+        </div>
       </header>
 
-      <section id="dashboard" class="page active">
-        <div class="hero">
-          <div>
-            <p class="eyebrow">Welcome back</p>
-            <h1>Run Level Up from one place.</h1>
-            <p>Quotes, customers, jobs, invoices and material calculators — saved on this device.</p>
-          </div>
-          <button class="primary" onclick="go('quotes');newQuote()">+ New Quote</button>
-        </div>
-        <div class="stats">
-          <div class="stat"><span>Quote Value</span><strong id="statQuotes">£0</strong></div>
-          <div class="stat"><span>Customers</span><strong id="statCustomers">0</strong></div>
-          <div class="stat"><span>Active Jobs</span><strong id="statJobs">0</strong></div>
-          <div class="stat"><span>Invoices Due</span><strong id="statInvoices">£0</strong></div>
-        </div>
-        <div class="two-col">
-          <div class="panel"><h2>Recent Quotes</h2><div id="recentQuotes" class="list empty">No quotes yet.</div></div>
-          <div class="panel"><h2>Today’s Quick Actions</h2><div class="action-grid">
-            <button onclick="go('customers');newCustomer()">Add Customer</button>
-            <button onclick="go('quotes');newQuote()">Create Quote</button>
-            <button onclick="go('invoices');newInvoice()">Raise Invoice</button>
-            <button onclick="go('materials')">Materials Calc</button>
-          </div></div>
-        </div>
-      </section>
-
-      <section id="quotes" class="page">
-        <div class="page-head"><h1>Quote Builder</h1><button class="primary" onclick="newQuote()">+ New Quote</button></div>
-        <div class="quote-grid">
-          <form class="panel" id="quoteForm" onsubmit="event.preventDefault();saveQuote()">
-            <h2>Job Details</h2>
-            <input type="hidden" id="quoteId" />
-            <label>Quote No.<input id="quoteNo" /></label>
-            <label>Customer<select id="quoteCustomer"></select></label>
-            <label>Project Address<input id="projectAddress" placeholder="Address" /></label>
-            <label>Job Type<select id="jobType"><option>Single Storey Extension</option><option>Bathroom Renovation</option><option>Kitchen Renovation</option><option>General Renovation</option><option>Insurance Repair</option><option>Other</option></select></label>
-            <div class="form-row"><label>Length (m)<input id="length" type="number" step="0.01" value="3.5" /></label><label>Width (m)<input id="width" type="number" step="0.01" value="3" /></label></div>
-            <div class="form-row"><label>Base Rate £/m²<input id="rate" type="number" value="3200" /></label><label>VAT %<input id="vat" type="number" value="0" /></label></div>
-            <div class="form-row"><label>Overhead %<input id="overhead" type="number" value="10" /></label><label>Profit %<input id="profit" type="number" value="15" /></label></div>
-            <label>Scope<textarea id="scope">Construction of a single-storey rear extension including foundations, slab, brick and block cavity walls, insulation, warm roof, windows/doors allowance, plastering, electrics, plumbing allowance, decoration and finishing.</textarea></label>
-            <label>Exclusions<textarea id="exclusions">Planning fees, structural engineer fees, kitchen supply, flooring, unforeseen ground conditions, utility diversions and works not listed above.</textarea></label>
-            <div class="buttons"><button type="button" onclick="calculateQuote()">Calculate</button><button class="primary" type="submit">Save Quote</button><button type="button" onclick="printQuote()">PDF / Print</button></div>
-          </form>
-
-          <div class="panel quote-preview" id="quotePreview">
-            <div class="quote-top"><img src="assets/logo.jpeg" alt="Logo"><div><h2>Quotation</h2><p id="previewQuoteNo">QU-0001</p></div></div>
-            <div class="preview-row"><span>Customer</span><strong id="previewCustomer">—</strong></div>
-            <div class="preview-row"><span>Project</span><strong id="previewProject">Single Storey Extension</strong></div>
-            <div class="summary-cards"><div><span>Area</span><strong id="areaOut">10.50 m²</strong></div><div><span>Total ex VAT</span><strong id="exVatOut">£42,504</strong></div><div><span>Total inc VAT</span><strong id="incVatOut">£42,504</strong></div></div>
-            <table><tbody id="breakdownBody"></tbody></table>
-            <h3>Payment Schedule</h3><table><tbody id="paymentsBody"></tbody></table>
-            <h3>Scope of Works</h3><p id="previewScope"></p>
-            <h3>Exclusions</h3><p id="previewExclusions"></p>
-          </div>
-        </div>
-        <div class="panel"><h2>Saved Quotes</h2><div id="quotesList" class="list empty">No quotes saved yet.</div></div>
-      </section>
-
-      <section id="customers" class="page">
-        <div class="page-head"><h1>Customers</h1><button class="primary" onclick="newCustomer()">+ New Customer</button></div>
-        <form class="panel" onsubmit="event.preventDefault();saveCustomer()">
-          <input type="hidden" id="customerId" />
-          <div class="form-row"><label>Name<input id="customerName" placeholder="Customer name" /></label><label>Phone<input id="customerPhone" placeholder="Phone" /></label></div>
-          <div class="form-row"><label>Email<input id="customerEmail" placeholder="Email" /></label><label>Address<input id="customerAddress" placeholder="Address" /></label></div>
-          <label>Notes<textarea id="customerNotes" placeholder="Gate codes, preferences, previous work, etc."></textarea></label>
-          <button class="primary" type="submit">Save Customer</button>
-        </form>
-        <div class="panel"><h2>Customer List</h2><div id="customersList" class="list empty">No customers saved yet.</div></div>
-      </section>
-
-      <section id="jobs" class="page">
-        <div class="page-head"><h1>Jobs</h1><button class="primary" onclick="newJob()">+ New Job</button></div>
-        <form class="panel" onsubmit="event.preventDefault();saveJob()">
-          <input type="hidden" id="jobId" />
-          <div class="form-row"><label>Job Name<input id="jobName" placeholder="Smith bathroom" /></label><label>Status<select id="jobStatus"><option>Lead</option><option>Quoted</option><option>Accepted</option><option>In Progress</option><option>Completed</option><option>On Hold</option></select></label></div>
-          <div class="form-row"><label>Start Date<input id="jobStart" type="date" /></label><label>Value (£)<input id="jobValue" type="number" /></label></div>
-          <label>Notes<textarea id="jobNotes" placeholder="Programme, access, materials, snags..."></textarea></label>
-          <button class="primary" type="submit">Save Job</button>
-        </form>
-        <div class="panel"><h2>Job Board</h2><div id="jobsList" class="list empty">No jobs saved yet.</div></div>
-      </section>
-
-      <section id="invoices" class="page">
-        <div class="page-head"><h1>Invoices</h1><button class="primary" onclick="newInvoice()">+ New Invoice</button></div>
-        <form class="panel" onsubmit="event.preventDefault();saveInvoice()">
-          <input type="hidden" id="invoiceId" />
-          <div class="form-row"><label>Invoice No.<input id="invoiceNo" /></label><label>Customer<input id="invoiceCustomer" /></label></div>
-          <div class="form-row"><label>Stage<input id="invoiceStage" placeholder="Deposit / roof complete / final" /></label><label>Amount (£)<input id="invoiceAmount" type="number" /></label></div>
-          <div class="form-row"><label>Due Date<input id="invoiceDue" type="date" /></label><label>Paid?<select id="invoicePaid"><option>No</option><option>Yes</option><option>Part Paid</option></select></label></div>
-          <button class="primary" type="submit">Save Invoice</button>
-        </form>
-        <div class="panel"><h2>Invoice Tracker</h2><div id="invoicesList" class="list empty">No invoices saved yet.</div></div>
-      </section>
-
-      <section id="materials" class="page">
-        <div class="page-head"><h1>Materials Calculator</h1></div>
-        <div class="two-col">
-          <div class="panel"><h2>Concrete / Screed</h2><div class="form-row"><label>Area m²<input id="matArea" type="number" value="40"></label><label>Thickness mm<input id="matThick" type="number" value="75"></label></div><button onclick="calcMaterials()">Calculate</button><div id="matResult" class="result"></div></div>
-          <div class="panel"><h2>Tiling Adhesive</h2><div class="form-row"><label>Area m²<input id="tileArea" type="number" value="20"></label><label>Coverage m²/bag<input id="tileCoverage" type="number" value="5"></label></div><button onclick="calcTiles()">Calculate</button><div id="tileResult" class="result"></div></div>
-        </div>
-      </section>
-
-      <section id="settings" class="page">
-        <div class="page-head"><h1>Settings</h1></div>
-        <form class="panel" onsubmit="event.preventDefault();saveSettings()">
-          <h2>Business Defaults</h2>
-          <div class="form-row"><label>Business Name<input id="settingBusiness" /></label><label>Phone<input id="settingPhone" /></label></div>
-          <label>Email<input id="settingEmail" /></label>
-          <div class="form-row"><label>Default Overhead %<input id="settingOverhead" type="number" /></label><label>Default Profit %<input id="settingProfit" type="number" /></label></div>
-          <button class="primary" type="submit">Save Settings</button>
-          <button type="button" class="danger" onclick="clearAllData()">Clear App Data</button>
-        </form>
-      </section>
+      <section id="dashboard" class="page active"></section>
+      <section id="customers" class="page"></section>
+      <section id="quotes" class="page"></section>
+      <section id="jobs" class="page"></section>
+      <section id="invoices" class="page"></section>
+      <section id="materials" class="page"></section>
+      <section id="settings" class="page"></section>
     </main>
 
     <nav class="bottom-nav">
-      <button class="nav active" data-page="dashboard">🏠<span>Home</span></button>
-      <button class="nav" data-page="quotes">📋<span>Quotes</span></button>
-      <button class="nav" data-page="customers">👤<span>Customers</span></button>
-      <button class="nav" data-page="jobs">📁<span>Jobs</span></button>
-      <button class="nav" data-page="invoices">💷<span>Money</span></button>
+      <button class="bottom-btn active" data-page="dashboard">🏠<span>Home</span></button>
+      <button class="bottom-btn" data-page="quotes">📄<span>Quotes</span></button>
+      <button class="bottom-btn" data-page="jobs">📋<span>Jobs</span></button>
+      <button class="bottom-btn" data-page="customers">👥<span>Customers</span></button>
+      <button class="bottom-btn" data-page="materials">📦<span>More</span></button>
     </nav>
   </div>
-  <script src="app.js?v=2.0.0"></script>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
