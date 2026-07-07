@@ -3,88 +3,140 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111827" />
   <title>Level Up Pro</title>
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div>
-      <h1>Level Up Pro</h1>
-      <p>Property renovation estimating & quote builder</p>
+  <header class="app-header no-print">
+    <div class="brand">
+      <img src="assets/logo.jpeg" alt="Level Up Property Renovation logo" />
+      <div>
+        <h1>Level Up Pro</h1>
+        <p>Quotes • Customers • Jobs</p>
+      </div>
     </div>
-    <div class="contact">
-      <strong>Level Up Property Renovation</strong><br>
-      07701 369715<br>
-      info@levelup-propertyrenovation.co.uk
-    </div>
+    <button class="ghost" id="installBtn" hidden>Install</button>
   </header>
 
-  <main class="layout">
-    <section class="card">
-      <h2>Job Details</h2>
-      <label>Quote No.<input id="quoteNo" value="QU-2026-001"></label>
-      <label>Client Name<input id="clientName" placeholder="Customer name"></label>
-      <label>Project Address<input id="projectAddress" placeholder="Project address"></label>
-      <label>Job Type
-        <select id="jobType">
-          <option>Single Storey Extension</option>
-          <option>Bathroom Renovation</option>
-          <option>Kitchen Renovation</option>
-          <option>General Renovation</option>
-          <option>Insurance Repair</option>
-        </select>
-      </label>
+  <nav class="tabs no-print">
+    <button class="tab active" data-tab="dashboard">Dashboard</button>
+    <button class="tab" data-tab="customers">Customers</button>
+    <button class="tab" data-tab="quote">New Quote</button>
+    <button class="tab" data-tab="quotes">Saved Quotes</button>
+  </nav>
+
+  <main>
+    <section id="dashboard" class="panel active">
+      <div class="grid cards">
+        <article class="stat"><span>Saved Customers</span><strong id="customerCount">0</strong></article>
+        <article class="stat"><span>Saved Quotes</span><strong id="quoteCount">0</strong></article>
+        <article class="stat"><span>Quote Value</span><strong id="quoteValue">£0</strong></article>
+        <article class="stat"><span>Latest Quote</span><strong id="latestQuote">None</strong></article>
+      </div>
+      <article class="card">
+        <h2>Quick Start</h2>
+        <ol>
+          <li>Add a customer.</li>
+          <li>Create a quote.</li>
+          <li>Save the quote.</li>
+          <li>Tap Print / PDF to send it to the customer.</li>
+        </ol>
+      </article>
     </section>
 
-    <section class="card">
-      <h2>Extension Estimator</h2>
-      <div class="grid">
-        <label>Length (m)<input type="number" id="length" value="3.5" step="0.1"></label>
-        <label>Width (m)<input type="number" id="width" value="3" step="0.1"></label>
-        <label>Base rate £/m²<input type="number" id="rate" value="3200"></label>
-        <label>Overhead %<input type="number" id="overhead" value="10"></label>
-        <label>Profit %<input type="number" id="profit" value="15"></label>
-        <label>VAT %<input type="number" id="vat" value="0"></label>
-      </div>
-      <button onclick="calculate()">Calculate Quote</button>
+    <section id="customers" class="panel">
+      <article class="card">
+        <h2>Add Customer</h2>
+        <div class="form-grid">
+          <label>Customer Name<input id="custName" placeholder="Customer name"></label>
+          <label>Phone<input id="custPhone" placeholder="Phone number"></label>
+          <label>Email<input id="custEmail" placeholder="Email address"></label>
+          <label>Address<input id="custAddress" placeholder="Project / home address"></label>
+        </div>
+        <label>Notes<textarea id="custNotes" placeholder="Access, parking, job notes..."></textarea></label>
+        <div class="actions"><button onclick="saveCustomer()">Save Customer</button><button class="secondary" onclick="clearCustomerForm()">Clear</button></div>
+      </article>
+      <article class="card">
+        <h2>Customer List</h2>
+        <div id="customerList" class="list"></div>
+      </article>
     </section>
 
-    <section class="card wide">
-      <h2>Quote Summary</h2>
-      <div class="summary">
-        <div><span>Area</span><strong id="areaOut">10.5 m²</strong></div>
-        <div><span>Direct Cost</span><strong id="directOut">£33,600</strong></div>
-        <div><span>Overheads</span><strong id="overheadOut">£3,360</strong></div>
-        <div><span>Profit</span><strong id="profitOut">£5,544</strong></div>
-        <div><span>Total Ex VAT</span><strong id="exVatOut">£42,504</strong></div>
-        <div><span>Total Inc VAT</span><strong id="incVatOut">£42,504</strong></div>
-      </div>
+    <section id="quote" class="panel">
+      <article class="card no-print">
+        <h2>Quote Builder</h2>
+        <div class="form-grid">
+          <label>Quote No.<input id="quoteNo"></label>
+          <label>Customer<select id="quoteCustomer"></select></label>
+          <label>Job Type<select id="jobType"><option>Single Storey Extension</option><option>Bathroom Renovation</option><option>Kitchen Renovation</option><option>General Renovation</option><option>Insurance Repair</option></select></label>
+          <label>Project Address<input id="projectAddress" placeholder="Site address"></label>
+          <label>Length (m)<input type="number" id="length" value="3.5" step="0.1"></label>
+          <label>Width (m)<input type="number" id="width" value="3" step="0.1"></label>
+          <label>Base Rate £/m²<input type="number" id="rate" value="3200" step="50"></label>
+          <label>Structural / Contingency £<input type="number" id="contingency" value="2296" step="50"></label>
+          <label>Overhead %<input type="number" id="overhead" value="10" step="1"></label>
+          <label>Profit %<input type="number" id="profit" value="15" step="1"></label>
+          <label>VAT %<input type="number" id="vat" value="0" step="1"></label>
+          <label>Status<select id="quoteStatus"><option>Draft</option><option>Sent</option><option>Accepted</option><option>Declined</option></select></label>
+        </div>
+        <label>Scope of Works<textarea id="scope">Construction of a 3.5m x 3.0m single-storey rear extension including foundations, slab, brick and block cavity walls, insulation, flat warm roof, windows/doors, plastering, electrics, plumbing allowance, decoration and finishing.</textarea></label>
+        <label>Exclusions<textarea id="exclusions">Planning fees, structural engineer fees, kitchen supply/installation, floor finishes, unforeseen ground conditions, utility diversions, party wall matters and any works not specifically listed above.</textarea></label>
+        <div class="actions">
+          <button onclick="calculate()">Calculate</button>
+          <button onclick="saveQuote()">Save Quote</button>
+          <button class="secondary" onclick="printQuote()">Print / PDF</button>
+          <button class="secondary" onclick="resetQuote()">New Blank Quote</button>
+        </div>
+      </article>
 
-      <h3>Scope of Works</h3>
-      <textarea id="scope">Construction of a 3.5m x 3.0m single-storey rear extension including foundations, slab, brick and block cavity walls, insulation, flat warm roof, windows/doors, plastering, electrics, plumbing allowance, decoration and finishing.</textarea>
-
-      <h3>Payment Schedule</h3>
-      <table id="paymentTable">
-        <tr><th>Stage</th><th>%</th><th>Amount</th></tr>
-        <tr><td>Deposit</td><td>10%</td><td id="p1"></td></tr>
-        <tr><td>Foundations Complete</td><td>20%</td><td id="p2"></td></tr>
-        <tr><td>Walls to Wall Plate</td><td>20%</td><td id="p3"></td></tr>
-        <tr><td>Roof Watertight</td><td>20%</td><td id="p4"></td></tr>
-        <tr><td>First Fix & Plastering</td><td>20%</td><td id="p5"></td></tr>
-        <tr><td>Completion</td><td>10%</td><td id="p6"></td></tr>
-      </table>
-
-      <div class="actions">
-        <button onclick="window.print()">Save / Print PDF</button>
-        <button onclick="saveJob()">Save Job</button>
-        <button onclick="loadJobs()">Load Saved Jobs</button>
-      </div>
+      <article class="quote-document" id="quoteDocument">
+        <div class="doc-top">
+          <img src="assets/logo.jpeg" alt="Level Up Property Renovation logo" />
+          <div class="doc-contact">
+            <strong>Level Up Property Renovation</strong><br>
+            07701 369715<br>
+            info@levelup-propertyrenovation.co.uk
+          </div>
+        </div>
+        <h2>Quotation</h2>
+        <div class="doc-grid">
+          <div><span>Quote No.</span><strong id="docQuoteNo">QU-0001</strong></div>
+          <div><span>Date</span><strong id="docDate"></strong></div>
+          <div><span>Customer</span><strong id="docCustomer">Not selected</strong></div>
+          <div><span>Project</span><strong id="docJobType">Single Storey Extension</strong></div>
+          <div class="span2"><span>Address</span><strong id="docAddress">—</strong></div>
+        </div>
+        <h3>Project Summary</h3>
+        <p id="docScope"></p>
+        <h3>Cost Summary</h3>
+        <table>
+          <tbody>
+            <tr><th>Area</th><td id="docArea">0 m²</td></tr>
+            <tr><th>Direct Cost</th><td id="docDirect">£0</td></tr>
+            <tr><th>Structural / Contingency</th><td id="docContingency">£0</td></tr>
+            <tr><th>Overheads</th><td id="docOverhead">£0</td></tr>
+            <tr><th>Profit</th><td id="docProfit">£0</td></tr>
+            <tr class="total"><th>Total Ex VAT</th><td id="docExVat">£0</td></tr>
+            <tr><th>VAT</th><td id="docVat">£0</td></tr>
+            <tr class="grand"><th>Total Inc VAT</th><td id="docIncVat">£0</td></tr>
+          </tbody>
+        </table>
+        <h3>Payment Schedule</h3>
+        <table id="paymentTable"><thead><tr><th>Stage</th><th>%</th><th>Amount</th></tr></thead><tbody></tbody></table>
+        <h3>Exclusions</h3>
+        <p id="docExclusions"></p>
+        <h3>Acceptance</h3>
+        <div class="acceptance"><div>Customer Signature:</div><div>Date:</div></div>
+      </article>
     </section>
 
-    <section class="card wide">
-      <h2>Saved Jobs</h2>
-      <div id="savedJobs">No saved jobs loaded yet.</div>
+    <section id="quotes" class="panel">
+      <article class="card">
+        <h2>Saved Quotes</h2>
+        <div id="quoteList" class="list"></div>
+      </article>
     </section>
   </main>
 

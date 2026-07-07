@@ -1,63 +1,33 @@
-function money(n){
-  return new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP',maximumFractionDigits:0}).format(n || 0);
-}
+const KEY_CUSTOMERS='lup_customers_v11';
+const KEY_QUOTES='lup_quotes_v11';
+let deferredPrompt=null;
+function $(id){return document.getElementById(id)}
+function money(n){return new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP',maximumFractionDigits:0}).format(Number(n)||0)}
+function today(){return new Date().toLocaleDateString('en-GB')}
+function getCustomers(){return JSON.parse(localStorage.getItem(KEY_CUSTOMERS)||'[]')}
+function setCustomers(v){localStorage.setItem(KEY_CUSTOMERS,JSON.stringify(v))}
+function getQuotes(){return JSON.parse(localStorage.getItem(KEY_QUOTES)||'[]')}
+function setQuotes(v){localStorage.setItem(KEY_QUOTES,JSON.stringify(v))}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 
-function calculate(){
-  const length = parseFloat(document.getElementById('length').value) || 0;
-  const width = parseFloat(document.getElementById('width').value) || 0;
-  const rate = parseFloat(document.getElementById('rate').value) || 0;
-  const overheadPct = parseFloat(document.getElementById('overhead').value) || 0;
-  const profitPct = parseFloat(document.getElementById('profit').value) || 0;
-  const vatPct = parseFloat(document.getElementById('vat').value) || 0;
+document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>showTab(btn.dataset.tab)));
+function showTab(name){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===name));renderAll()}
 
-  const area = length * width;
-  const direct = area * rate;
-  const overhead = direct * overheadPct / 100;
-  const profit = (direct + overhead) * profitPct / 100;
-  const exVat = direct + overhead + profit;
-  const vat = exVat * vatPct / 100;
-  const incVat = exVat + vat;
+function clearCustomerForm(){['custName','custPhone','custEmail','custAddress','custNotes'].forEach(id=>$(id).value='')}
+function saveCustomer(){const name=$('custName').value.trim(); if(!name){alert('Add a customer name first.');return} const customers=getCustomers(); customers.push({id:uid(),name,phone:$('custPhone').value,email:$('custEmail').value,address:$('custAddress').value,notes:$('custNotes').value}); setCustomers(customers); clearCustomerForm(); renderAll(); alert('Customer saved')}
+function deleteCustomer(id){if(!confirm('Delete this customer?'))return; setCustomers(getCustomers().filter(c=>c.id!==id)); renderAll()}
+function renderCustomers(){const customers=getCustomers(); $('customerList').innerHTML=customers.length?customers.map(c=>`<div class="list-item"><strong>${c.name}</strong>${c.phone||''}<br>${c.email||''}<br>${c.address||''}<p>${c.notes||''}</p><div class="list-actions"><button onclick="useCustomer('${c.id}')">Use in Quote</button><button class="danger" onclick="deleteCustomer('${c.id}')">Delete</button></div></div>`).join(''):'No customers saved yet.'; const opts=['<option value="">Select customer</option>'].concat(customers.map(c=>`<option value="${c.id}">${c.name}</option>`)); $('quoteCustomer').innerHTML=opts.join('')}
+function useCustomer(id){showTab('quote'); $('quoteCustomer').value=id; const c=getCustomers().find(x=>x.id===id); if(c && !$('projectAddress').value) $('projectAddress').value=c.address||''; calculate()}
 
-  document.getElementById('areaOut').textContent = area.toFixed(2) + " m²";
-  document.getElementById('directOut').textContent = money(direct);
-  document.getElementById('overheadOut').textContent = money(overhead);
-  document.getElementById('profitOut').textContent = money(profit);
-  document.getElementById('exVatOut').textContent = money(exVat);
-  document.getElementById('incVatOut').textContent = money(incVat);
-
-  [10,20,20,20,20,10].forEach((pct,i)=>{
-    document.getElementById('p'+(i+1)).textContent = money(incVat * pct / 100);
-  });
-}
-
-function saveJob(){
-  calculate();
-  const jobs = JSON.parse(localStorage.getItem('levelUpJobs') || '[]');
-  jobs.push({
-    quoteNo: document.getElementById('quoteNo').value,
-    clientName: document.getElementById('clientName').value,
-    projectAddress: document.getElementById('projectAddress').value,
-    jobType: document.getElementById('jobType').value,
-    total: document.getElementById('incVatOut').textContent,
-    date: new Date().toLocaleDateString('en-GB')
-  });
-  localStorage.setItem('levelUpJobs', JSON.stringify(jobs));
-  loadJobs();
-  alert('Job saved on this device.');
-}
-
-function loadJobs(){
-  const jobs = JSON.parse(localStorage.getItem('levelUpJobs') || '[]');
-  const box = document.getElementById('savedJobs');
-  if(!jobs.length){ box.innerHTML = 'No saved jobs yet.'; return; }
-  box.innerHTML = jobs.map(j => `
-    <div class="saved">
-      <strong>${j.quoteNo}</strong> - ${j.clientName || 'Unnamed client'}<br>
-      ${j.jobType} | ${j.projectAddress || 'No address'} | ${j.total} | ${j.date}
-    </div><hr>`).join('');
-}
-
-calculate();
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js').catch(()=>{});
-}
+function resetQuote(){const next=getQuotes().length+1; $('quoteNo').value='QU-'+new Date().getFullYear()+'-'+String(next).padStart(3,'0'); ['projectAddress'].forEach(id=>$(id).value=''); $('quoteCustomer').value=''; calculate()}
+function calculate(){const length=parseFloat($('length').value)||0,width=parseFloat($('width').value)||0,rate=parseFloat($('rate').value)||0,cont=parseFloat($('contingency').value)||0,ohPct=parseFloat($('overhead').value)||0,profPct=parseFloat($('profit').value)||0,vatPct=parseFloat($('vat').value)||0; const area=length*width; const direct=area*rate; const overhead=(direct+cont)*ohPct/100; const profit=(direct+cont+overhead)*profPct/100; const exVat=direct+cont+overhead+profit; const vat=exVat*vatPct/100; const incVat=exVat+vat; const c=getCustomers().find(x=>x.id===$('quoteCustomer').value); $('docQuoteNo').textContent=$('quoteNo').value||'Quote'; $('docDate').textContent=today(); $('docCustomer').textContent=c?c.name:'Not selected'; $('docJobType').textContent=$('jobType').value; $('docAddress').textContent=$('projectAddress').value||c?.address||'—'; $('docScope').textContent=$('scope').value; $('docExclusions').textContent=$('exclusions').value; $('docArea').textContent=area.toFixed(2)+' m²'; $('docDirect').textContent=money(direct); $('docContingency').textContent=money(cont); $('docOverhead').textContent=money(overhead); $('docProfit').textContent=money(profit); $('docExVat').textContent=money(exVat); $('docVat').textContent=money(vat); $('docIncVat').textContent=money(incVat); const stages=[['Deposit on acceptance',10],['Foundations complete',20],['Walls to wall plate',20],['Roof watertight',20],['First fix & plastering',20],['Completion',10]]; $('paymentTable').querySelector('tbody').innerHTML=stages.map(s=>`<tr><td>${s[0]}</td><td>${s[1]}%</td><td>${money(incVat*s[1]/100)}</td></tr>`).join(''); return {area,direct,cont,overhead,profit,exVat,vat,incVat,customer:c?.name||'',address:$('projectAddress').value||c?.address||''}}
+function saveQuote(){const totals=calculate(); const quotes=getQuotes(); const q={id:uid(),quoteNo:$('quoteNo').value,customerId:$('quoteCustomer').value,customer:totals.customer,jobType:$('jobType').value,address:totals.address,status:$('quoteStatus').value,total:totals.incVat,date:today(),scope:$('scope').value,exclusions:$('exclusions').value,inputs:{length:$('length').value,width:$('width').value,rate:$('rate').value,contingency:$('contingency').value,overhead:$('overhead').value,profit:$('profit').value,vat:$('vat').value}}; const idx=quotes.findIndex(x=>x.quoteNo===q.quoteNo); if(idx>=0)quotes[idx]=q; else quotes.push(q); setQuotes(quotes); renderAll(); alert('Quote saved')}
+function loadQuote(id){const q=getQuotes().find(x=>x.id===id); if(!q)return; showTab('quote'); $('quoteNo').value=q.quoteNo; $('quoteCustomer').value=q.customerId||''; $('jobType').value=q.jobType; $('projectAddress').value=q.address||''; $('quoteStatus').value=q.status||'Draft'; $('scope').value=q.scope||''; $('exclusions').value=q.exclusions||''; Object.entries(q.inputs||{}).forEach(([k,v])=>{const el=$(k); if(el)el.value=v}); calculate()}
+function deleteQuote(id){if(!confirm('Delete this quote?'))return; setQuotes(getQuotes().filter(q=>q.id!==id)); renderAll()}
+function renderQuotes(){const quotes=getQuotes(); $('quoteList').innerHTML=quotes.length?quotes.slice().reverse().map(q=>`<div class="list-item"><strong>${q.quoteNo} — ${q.customer||'No customer'}</strong>${q.jobType}<br>${q.address||''}<br><b>${money(q.total)}</b> • ${q.status} • ${q.date}<div class="list-actions"><button onclick="loadQuote('${q.id}')">Open</button><button class="danger" onclick="deleteQuote('${q.id}')">Delete</button></div></div>`).join(''):'No quotes saved yet.'}
+function renderDashboard(){const cs=getCustomers(),qs=getQuotes(); $('customerCount').textContent=cs.length; $('quoteCount').textContent=qs.length; $('quoteValue').textContent=money(qs.reduce((s,q)=>s+(Number(q.total)||0),0)); $('latestQuote').textContent=qs.length?qs[qs.length-1].quoteNo:'None'}
+function printQuote(){calculate(); window.print()}
+function renderAll(){renderCustomers(); renderQuotes(); renderDashboard(); calculate()}
+window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPrompt=e;$('installBtn').hidden=false}); $('installBtn').addEventListener('click',async()=>{if(!deferredPrompt)return; deferredPrompt.prompt(); deferredPrompt=null; $('installBtn').hidden=true});
+if('serviceWorker' in navigator){navigator.serviceWorker.register('service-worker.js').catch(()=>{})}
+resetQuote(); renderAll();

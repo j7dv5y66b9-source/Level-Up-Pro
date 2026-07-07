@@ -1,14 +1,20 @@
-LEVEL UP PRO WEB APP V1
+LEVEL UP PRO V1.1
 
-This is a free starter web app.
-How to use:
-1. Unzip the folder.
-2. Open index.html in your browser.
-3. Add it to your iPhone home screen if hosted online.
-4. Press 'Save / Print PDF' to create a PDF quote.
-5. Saved jobs are stored on the device using browser local storage.
+New in this version:
+- Level Up logo added to the app and quotation printout
+- Customer database saved on the device
+- Saved quote list saved on the device
+- Professional print/PDF quote layout
+- Dashboard showing customer count, saved quotes and quote value
 
-Best free hosting options:
-- GitHub Pages
-- Netlify free plan
-- Vercel free plan
+Upload/replace these files in GitHub:
+- index.html
+- app.js
+- styles.css
+- manifest.json
+- service-worker.js
+- README.txt
+- assets/logo.jpeg
+
+Important:
+If GitHub does not upload folders from your iPhone, create an assets folder in GitHub and upload logo.jpeg inside it.
