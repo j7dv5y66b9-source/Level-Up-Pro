@@ -181,4 +181,73 @@
     right: 0;
     border-right-color: var(--border);
   }
+
+.quote-box {
+  margin-top: 24px;
+  padding: 22px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.quote-box h3 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.quote-box label {
+  display: block;
+  margin: 16px 0;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.quote-box input {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  font-size: 18px;
+}
+
+.result {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(36, 107, 255, 0.18);
+}
+
+.result p {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 10px 0;
+}.form-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.quote-box select {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  font-size: 18px;
+}
+
+.result hr {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.25);
+  margin: 16px 0;
+}
+
+.result .total {
+  font-size: 22px;
+  font-weight: 900;
+  color: #ffc42e;
+}.form-grid {
+  display: grid;
+  gap: 16px;
 }

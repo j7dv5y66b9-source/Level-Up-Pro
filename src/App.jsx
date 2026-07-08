@@ -1,52 +1,184 @@
 import { useState } from "react";
 import "./App.css";
 
-const pages = {
-  home: "Home",
-  quotes: "Quotes",
-  jobs: "Jobs",
-  customers: "Customers",
-  merchants: "Merchants",
-  diary: "Diary",
-  ai: "AI Site Manager",
-};
-
 function App() {
   const [page, setPage] = useState("home");
+  const [trade, setTrade] = useState("");
+
+
+  
+
+const [area, setArea] = useState("");
+  const [tileSize, setTileSize] = useState("600x600");
+  const [customTileWidth, setCustomTileWidth] = useState("");
+  const [customTileHeight, setCustomTileHeight] = useState("");
+  const [waste, setWaste] = useState("10");
+  const [labourRate, setLabourRate] = useState("55");
+  const [tilePrice, setTilePrice] = useState("25");
+  const [adhesivePrice, setAdhesivePrice] = useState("18");
+  const [groutPrice, setGroutPrice] = useState("12");
+  const [profit, setProfit] = useState("15");
+
+  const roomArea = Number(area || 0);
+  const totalArea = roomArea + roomArea * (Number(waste || 0) / 100);
+
+  const tileSizes = {
+    "600x600": [600, 600],
+    "300x600": [300, 600],
+    "300x300": [300, 300],
+    "100x200 Metro": [100, 200],
+    Custom: [Number(customTileWidth || 0), Number(customTileHeight || 0)],
+  };
+
+  const [tileW, tileH] = tileSizes[tileSize];
+  const tileArea = (tileW / 1000) * (tileH / 1000);
+  const tilesNeeded = tileArea > 0 ? Math.ceil(totalArea / tileArea) : 0;
+
+  const adhesiveBags = Math.ceil(totalArea / 5);
+  const groutKg = totalArea * 0.4;
+  const primerLitres = Math.ceil(totalArea / 10);
+  const siliconeTubes = Math.ceil(roomArea / 8);
+
+  const materialCost =
+    totalArea * Number(tilePrice || 0) +
+    adhesiveBags * Number(adhesivePrice || 0) +
+    groutKg * Number(groutPrice || 0) +
+    primerLitres * 10 +
+    siliconeTubes * 8;
+
+  const labourCost = roomArea * Number(labourRate || 0);
+  const subtotal = materialCost + labourCost;
+  const profitAmount = subtotal * (Number(profit || 0) / 100);
+  const quoteTotal = subtotal + profitAmount;
 
   return (
     <main className="app">
-      <section className="hero">
+      <header className="hero">
         <div className="logo">🏠</div>
         <p className="tag">Built for Builders</p>
         <h1>Build It Pro</h1>
         <p className="sub">Built by Level Up.</p>
-      </section>
+      </header>
 
-      <section className="grid">
-        {Object.entries(pages).map(([key, label]) => (
-          <button
-            key={key}
-            onClick={() => setPage(key)}
-            className={page === key ? "active" : ""}
-          >
-            {label}
-          </button>
-        ))}
-      </section>
+      <nav className="grid">
+        <button onClick={() => setPage("home")}>Home</button>
+        <button onClick={() => setPage("quotes")}>Quotes</button>
+        <button onClick={() => setPage("jobs")}>Jobs</button>
+        <button onClick={() => setPage("customers")}>Customers</button>
+        <button onClick={() => setPage("merchants")}>Merchants</button>
+        <button onClick={() => setPage("ai")}>AI Site Manager</button>
+      </nav>
 
-      <section className="panel">
-        <h2>{pages[page]}</h2>
-        <p>
-          {page === "home" && "Your business command centre."}
-          {page === "quotes" && "Smart quote engine coming next."}
-          {page === "jobs" && "Track live jobs, staff and materials."}
-          {page === "customers" && "Properties, customers and tea ratings."}
-          {page === "merchants" && "Compare suppliers and material prices."}
-          {page === "diary" && "Daily site notes and progress updates."}
-          {page === "ai" && "AI Site Manager is on the roadmap."}
-        </p>
-      </section>
+      {page === "home" && (
+        <section className="panel">
+          <h2>Business Command Centre</h2>
+          <p>Your home for quotes, jobs, customers, merchants and AI Site Manager.</p>
+        </section>
+      )}
+
+      {page === "quotes" && (
+        <section className="panel">
+          <h2>Smart Quote Builder</h2>
+          <p>What are we pricing today?</p>
+
+          <div className="grid">
+            <button onClick={() => setTrade("tiling")}>🧱 Tiling</button>
+            <button onClick={() => setTrade("screed")}>🏗️ Screed</button>
+            <button onClick={() => setTrade("bathroom")}>🚿 Bathroom</button>
+            <button onClick={() => setTrade("extension")}>🏠 Extension</button>
+          </div>
+
+          {trade === "tiling" && (
+            <div className="quote-box">
+              <h3>🧱 Tiling Calculator Pro V1</h3>
+
+              <div className="form-grid">
+                <label>
+  Total area to tile m²
+  <input value={area} onChange={(e) => setArea(e.target.value)} />
+</label>
+
+                <label>
+                  Tile size
+                  <select value={tileSize} onChange={(e) => setTileSize(e.target.value)}>
+                    <option>600x600</option>
+                    <option>300x600</option>
+                    <option>300x300</option>
+                    <option>100x200 Metro</option>
+                    <option>Custom</option>
+                  </select>
+                </label>
+
+                {tileSize === "Custom" && (
+                  <>
+                    <label>
+                      Custom tile width mm
+                      <input value={customTileWidth} onChange={(e) => setCustomTileWidth(e.target.value)} />
+                    </label>
+
+                    <label>
+                      Custom tile height mm
+                      <input value={customTileHeight} onChange={(e) => setCustomTileHeight(e.target.value)} />
+                    </label>
+                  </>
+                )}
+
+                <label>
+                  Wastage %
+                  <input value={waste} onChange={(e) => setWaste(e.target.value)} />
+                </label>
+
+                <label>
+                  Labour £ per m²
+                  <input value={labourRate} onChange={(e) => setLabourRate(e.target.value)} />
+                </label>
+
+                <label>
+                  Tile price £ per m²
+                  <input value={tilePrice} onChange={(e) => setTilePrice(e.target.value)} />
+                </label>
+
+                <label>
+                  Adhesive price per 20kg bag
+                  <input value={adhesivePrice} onChange={(e) => setAdhesivePrice(e.target.value)} />
+                </label>
+
+                <label>
+                  Grout price per kg
+                  <input value={groutPrice} onChange={(e) => setGroutPrice(e.target.value)} />
+                </label>
+
+                <label>
+                  Profit %
+                  <input value={profit} onChange={(e) => setProfit(e.target.value)} />
+                </label>
+              </div>
+
+              <div className="result">
+                <p>Room area <strong>{roomArea.toFixed(2)}m²</strong></p>
+                <p>Total area with waste <strong>{totalArea.toFixed(2)}m²</strong></p>
+                <p>Tiles needed <strong>{tilesNeeded}</strong></p>
+                <p>20kg adhesive bags <strong>{adhesiveBags}</strong></p>
+                <p>Grout needed <strong>{groutKg.toFixed(1)}kg</strong></p>
+                <p>Primer needed <strong>{primerLitres}L</strong></p>
+                <p>Silicone tubes <strong>{siliconeTubes}</strong></p>
+                <hr />
+                <p>Material cost <strong>£{materialCost.toFixed(2)}</strong></p>
+                <p>Labour cost <strong>£{labourCost.toFixed(2)}</strong></p>
+                <p>Profit <strong>£{profitAmount.toFixed(2)}</strong></p>
+                <p className="total">Suggested quote <strong>£{quoteTotal.toFixed(2)}</strong></p>
+              </div>
+            </div>
+          )}
+        </section>
+      )}
+
+      {page !== "home" && page !== "quotes" && (
+        <section className="panel">
+          <h2>{page}</h2>
+          <p>This section is coming next.</p>
+        </section>
+      )}
     </main>
   );
 }
