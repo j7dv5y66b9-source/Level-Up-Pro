@@ -12,16 +12,17 @@ const [area, setArea] = useState("");
   const [tileSize, setTileSize] = useState("600x600");
   const [customTileWidth, setCustomTileWidth] = useState("");
   const [customTileHeight, setCustomTileHeight] = useState("");
-  const [waste, setWaste] = useState("10");
+  const [wastage, setWasagte] = useState("10");
   const [labourRate, setLabourRate] = useState("55");
   const [tilePrice, setTilePrice] = useState("25");
   const [adhesivePrice, setAdhesivePrice] = useState("18");
   const [groutPrice, setGroutPrice] = useState("12");
   const [groutJoint, setGroutJoint] = useState("3");
   const [profit, setProfit] = useState("15");
+  const [profitType, setProfitType] = useState("percent");
 
   const roomArea = Number(area || 0);
-  const totalArea = roomArea + roomArea * (Number(waste || 0) / 100);
+  const totalArea = roomArea + roomArea * (Number(wastage || 0) / 100);
 
   const tileSizes = {
     "600x600": [600, 600],
@@ -136,7 +137,7 @@ const [area, setArea] = useState("");
 
                 <label>
                   Wastage %
-                  <input value={waste} onChange={(e) => setWaste(e.target.value)} />
+                  <input value={wastage} onChange={(e) => setWastage(e.target.value)} />
                 </label>
 
 <h4>Pricing</h4>
@@ -168,9 +169,17 @@ const [area, setArea] = useState("");
                 </label>
 
                 <label>
-                  Profit %
-                  <input value={profit} onChange={(e) => setProfit(e.target.value)} />
-                </label>
+  Profit type
+  <select value={profitType} onChange={(e) => setProfitType(e.target.value)}>
+    <option value="percent">Percentage %</option>
+    <option value="fixed">Fixed £</option>
+  </select>
+</label>
+
+<label>
+  Profit {profitType === "percent" ? "%" : "£"}
+  <input value={profit} onChange={(e) => setProfit(e.target.value)} />
+</label>
               </div>
               
               <button className="quote-button">
@@ -178,7 +187,7 @@ const [area, setArea] = useState("");
 </button>
               <div className="result">
                 <p>Room area <strong>{roomArea.toFixed(2)}m²</strong></p>
-                <p>Total area with waste <strong>{totalArea.toFixed(2)}m²</strong></p>
+                <p>Total area with wastage <strong>{totalArea.toFixed(2)}m²</strong></p>
                 <p>Tiles needed <strong>{tilesNeeded}</strong></p>
                 <p>20kg adhesive bags <strong>{adhesiveBags}</strong></p>
                 <p>Grout needed <strong>{groutKg.toFixed(1)}kg</strong></p>
