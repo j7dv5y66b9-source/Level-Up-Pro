@@ -136,9 +136,12 @@ const [area, setArea] = useState("");
                 )}
 
                 <label>
-                  Wastage %
-                  <input value={wastage} onChange={(e) => setWastage(e.target.value)} />
-                </label>
+  Wastage %
+  <input
+    value={wastage}
+    onChange={(e) => setWastage(e.target.value)}
+  />
+</label>
 
 <h4>Pricing</h4>
                 <label>
