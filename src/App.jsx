@@ -17,6 +17,7 @@ const [area, setArea] = useState("");
   const [tilePrice, setTilePrice] = useState("25");
   const [adhesivePrice, setAdhesivePrice] = useState("18");
   const [groutPrice, setGroutPrice] = useState("12");
+  const [groutJoint, setGroutJoint] = useState("3");
   const [profit, setProfit] = useState("15");
 
   const roomArea = Number(area || 0);
