@@ -91,14 +91,24 @@ const [area, setArea] = useState("");
 
           {trade === "tiling" && (
             <div className="quote-box">
-              <h3>🧱 Tiling Calculator Pro V1</h3>
+              <div className="calculator-header">
+  <h2>Tiling Calculator Pro</h2>
+  <p>Professional tiling quote calculator</p>
+</div>
+<div className="progress">
+  <div className="progress-fill"></div>
+</div>
+
+<p className="step">Step 1 of 4</p>
 
               <div className="form-grid">
                 <label>
+                  <h4>Area</h4>
   Total area to tile m²
   <input value={area} onChange={(e) => setArea(e.target.value)} />
 </label>
 
+<h4>Tiles</h4>
                 <label>
                   Tile size
                   <select value={tileSize} onChange={(e) => setTileSize(e.target.value)}>
@@ -129,6 +139,7 @@ const [area, setArea] = useState("");
                   <input value={waste} onChange={(e) => setWaste(e.target.value)} />
                 </label>
 
+<h4>Pricing</h4>
                 <label>
                   Labour £ per m²
                   <input value={labourRate} onChange={(e) => setLabourRate(e.target.value)} />
@@ -161,7 +172,10 @@ const [area, setArea] = useState("");
                   <input value={profit} onChange={(e) => setProfit(e.target.value)} />
                 </label>
               </div>
-
+              
+              <button className="quote-button">
+  Calculate Quote →
+</button>
               <div className="result">
                 <p>Room area <strong>{roomArea.toFixed(2)}m²</strong></p>
                 <p>Total area with waste <strong>{totalArea.toFixed(2)}m²</strong></p>

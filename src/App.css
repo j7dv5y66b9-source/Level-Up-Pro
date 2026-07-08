@@ -251,3 +251,54 @@
   display: grid;
   gap: 16px;
 }
+.calculator-header{
+  margin-bottom:30px;
+}
+
+.calculator-header h2{
+  font-size:32px;
+  margin:0;
+}
+
+.calculator-header p{
+  color:#777;
+  margin-top:8px;
+}
+
+.progress{
+  height:8px;
+  background:#eee;
+  border-radius:100px;
+  margin:20px 0 8px;
+}
+
+.progress-fill{
+  width:25%;
+  height:100%;
+  border-radius:100px;
+  background:linear-gradient(90deg,#ff5a1f,#ff8b2b);
+}
+
+.step{
+  color:#888;
+  font-size:14px;
+  margin-bottom:25px;
+}
+
+h4{
+  margin-top:30px;
+  margin-bottom:10px;
+}
+
+.quote-button{
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:14px;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  color:white;
+  background:linear-gradient(90deg,#ff5a1f,#ff8b2b);
+  margin-top:25px;
+}
