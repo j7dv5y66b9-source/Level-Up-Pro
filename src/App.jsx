@@ -144,6 +144,13 @@ const [area, setArea] = useState("");
                 </label>
 
                 <label>
+                  <label>
+  Grout joint width mm
+  <input
+    value={groutJoint}
+    onChange={(e) => setGroutJoint(e.target.value)}
+  />
+</label>
                   Grout price per kg
                   <input value={groutPrice} onChange={(e) => setGroutPrice(e.target.value)} />
                 </label>
