@@ -12,7 +12,7 @@ const [area, setArea] = useState("");
   const [tileSize, setTileSize] = useState("600x600");
   const [customTileWidth, setCustomTileWidth] = useState("");
   const [customTileHeight, setCustomTileHeight] = useState("");
-  const [wastage, setWasagte] = useState("10");
+  const [wastage, setWastage] = useState("10");
   const [labourRate, setLabourRate] = useState("55");
   const [tilePrice, setTilePrice] = useState("25");
   const [adhesivePrice, setAdhesivePrice] = useState("18");
@@ -34,7 +34,13 @@ const [area, setArea] = useState("");
 
   const [tileW, tileH] = tileSizes[tileSize];
   const tileArea = (tileW / 1000) * (tileH / 1000);
-  const tilesNeeded = tileArea > 0 ? Math.ceil(totalArea / tileArea) : 0;
+  const tilesNeeded =
+  tileArea > 0
+    ? Math.ceil(
+        (totalArea / tileArea) *
+        (1 + Number(wastage || 0) / 100)
+      )
+    : 0;
 
   const adhesiveBags = Math.ceil(totalArea / 5);
   const groutKg = totalArea * 0.4;
@@ -138,6 +144,9 @@ const [area, setArea] = useState("");
                 <label>
   Wastage %
   <input
+    type="number"
+    min="0"
+    step="1"
     value={wastage}
     onChange={(e) => setWastage(e.target.value)}
   />
