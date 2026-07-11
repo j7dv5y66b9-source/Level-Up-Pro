@@ -13,10 +13,10 @@ const [area, setArea] = useState("");
   const [customTileWidth, setCustomTileWidth] = useState("");
   const [customTileHeight, setCustomTileHeight] = useState("");
   const [wastage, setWastage] = useState("10");
-  const [labourRate, setLabourRate] = useState("55");
-  const [tilePrice, setTilePrice] = useState("25");
-  const [adhesivePrice, setAdhesivePrice] = useState("18");
-  const [groutPrice, setGroutPrice] = useState("12");
+  const [labourRate, setLabourRate] = useState("");
+  const [tilePrice, setTilePrice] = useState("");
+  const [adhesivePrice, setAdhesivePrice] = useState("");
+  const [groutPrice, setGroutPrice] = useState("");
   const [groutJoint, setGroutJoint] = useState("3");
   const [profit, setProfit] = useState("15");
   const [profitType, setProfitType] = useState("percent");
@@ -48,11 +48,9 @@ const [area, setArea] = useState("");
   const siliconeTubes = Math.ceil(roomArea / 8);
 
   const materialCost =
-    totalArea * Number(tilePrice || 0) +
-    adhesiveBags * Number(adhesivePrice || 0) +
-    groutKg * Number(groutPrice || 0) +
-    primerLitres * 10 +
-    siliconeTubes * 8;
+  totalArea * Number(tilePrice || 0) +
+  adhesiveBags * Number(adhesivePrice || 0) +
+  groutKg * Number(groutPrice || 0);
 
   const labourCost = roomArea * Number(labourRate || 0);
   const subtotal = materialCost + labourCost;
@@ -203,8 +201,7 @@ const [area, setArea] = useState("");
                 <p>Tiles needed <strong>{tilesNeeded}</strong></p>
                 <p>20kg adhesive bags <strong>{adhesiveBags}</strong></p>
                 <p>Grout needed <strong>{groutKg.toFixed(1)}kg</strong></p>
-                <p>Primer needed <strong>{primerLitres}L</strong></p>
-                <p>Silicone tubes <strong>{siliconeTubes}</strong></p>
+                
                 <hr />
                 <p>Material cost <strong>£{materialCost.toFixed(2)}</strong></p>
                 <p>Labour cost <strong>£{labourCost.toFixed(2)}</strong></p>
