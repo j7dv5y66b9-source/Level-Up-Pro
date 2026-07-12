@@ -291,6 +291,52 @@ return (
           <p>This section is coming next.</p>
         </section>
       )}
+    <nav className="bottom-nav">
+  <button
+    type="button"
+    className={page === "home" ? "active" : ""}
+    onClick={() => setPage("home")}
+  >
+    <span>⌂</span>
+    <small>Home</small>
+  </button>
+
+  <button
+    type="button"
+    className={page === "quotes" ? "active" : ""}
+    onClick={() => setPage("quotes")}
+  >
+    <span>▤</span>
+    <small>Quotes</small>
+  </button>
+
+  <button
+    type="button"
+    className="new-quote-button"
+    onClick={() => setPage("quotes")}
+    aria-label="Create new quote"
+  >
+    +
+  </button>
+
+  <button
+    type="button"
+    className={page === "materials" ? "active" : ""}
+    onClick={() => setPage("materials")}
+  >
+    <span>◇</span>
+    <small>Materials</small>
+  </button>
+
+  <button
+    type="button"
+    className={page === "profile" ? "active" : ""}
+    onClick={() => setPage("profile")}
+  >
+    <span>○</span>
+    <small>Profile</small>
+  </button>
+</nav>
     </main>
   );
 }
