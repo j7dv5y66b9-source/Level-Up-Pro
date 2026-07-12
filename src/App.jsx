@@ -101,7 +101,7 @@ const [area, setArea] = useState("");
       </button>
 
       <button
-        className="dashboard-card"
+        className="dashboard-card dashboard-card-primary"
         type="button"
         onClick={() => setPage("quotes")}
       >
