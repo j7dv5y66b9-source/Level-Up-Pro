@@ -61,9 +61,9 @@ const [area, setArea] = useState("");
     <main className="app">
       <header className="hero">
         <div className="logo">🏠</div>
-        <p className="tag">Built for Builders</p>
-        <h1>Build It Pro</h1>
-        <p className="sub">Built by Level Up.</p>
+        <p className="tag">Built for the way you work</p>
+        <h1>BUILD IT PRO</h1>
+        <p className="sub">From qoute to completion. Everything your business needs in one place.</p>
       </header>
 
       <nav className="grid">
@@ -76,10 +76,42 @@ const [area, setArea] = useState("");
       </nav>
 
       {page === "home" && (
-        <section className="panel">
-          <h2>Business Command Centre</h2>
-          <p>Your home for quotes, jobs, customers, merchants and AI Site Manager.</p>
-        </section>
+      <section className="panel">
+  <h2>🏠 Business Command Centre</h2>
+
+  <p>Built for the way you work.</p>
+
+  <div className="grid">
+    <button onClick={() => setPage("tiling")}>
+      🧮 Tiling Calculator Pro
+    </button>
+
+    <button onClick={() => setPage("quotes")}>
+      📋 Quotes
+    </button>
+
+    <button onClick={() => setPage("jobs")}>
+      🏗 Jobs
+    </button>
+
+    <button onClick={() => setPage("customers")}>
+      👥 Customers
+    </button>
+
+    <button onClick={() => setPage("merchants")}>
+      🏪 Merchants
+    </button>
+
+    <button onClick={() => setPage("ai")}>
+      🤖 AI Site Manager
+    </button>
+  </div>
+
+  <p style={{ marginTop: "30px" }}>
+    <strong>From quote to job.</strong><br />
+    Don't just build it. Build It Pro.
+  </p>
+</section>
       )}
 
       {page === "quotes" && (
@@ -97,12 +129,16 @@ const [area, setArea] = useState("");
           {trade === "tiling" && (
             <div className="quote-box">
               <div className="calculator-header">
+  
+
+
+return (
   <h2>Tiling Calculator Pro</h2>
   <p>Professional tiling quote calculator</p>
 </div>
 <div className="progress">
   <div className="progress-fill"></div>
-</div>
+</div> 
 
 <p className="step">Step 1 of 4</p>
 
