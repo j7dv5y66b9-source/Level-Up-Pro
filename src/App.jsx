@@ -66,53 +66,89 @@ const [area, setArea] = useState("");
         <p className="sub">From qoute to completion. Everything your business needs in one place.</p>
       </header>
 
-      <nav className="grid">
-        <button onClick={() => setPage("home")}>Home</button>
-        <button onClick={() => setPage("quotes")}>Quotes</button>
-        <button onClick={() => setPage("jobs")}>Jobs</button>
-        <button onClick={() => setPage("customers")}>Customers</button>
-        <button onClick={() => setPage("merchants")}>Merchants</button>
-        <button onClick={() => setPage("ai")}>AI Site Manager</button>
-      </nav>
+      
 
       {page === "home" && (
-      <section className="panel">
-  <h2>🏠 Business Command Centre</h2>
+  <section className="dashboard">
+    <div className="dashboard-top">
+      <div>
+        <p className="dashboard-brand">BUILD IT PRO</p>
+        <p className="dashboard-tagline">
+          Built for the way you work
+        </p>
+      </div>
 
-  <p>Built for the way you work.</p>
+      <button className="icon-button" type="button">
+        🔔
+      </button>
+    </div>
 
-  <div className="grid">
-    <button onClick={() => setPage("tiling")}>
-      🧮 Tiling Calculator Pro
-    </button>
+    <div className="dashboard-welcome">
+      <p>Good evening,</p>
+      <h2>Callum 👋</h2>
+      <span>What would you like to do?</span>
+    </div>
 
-    <button onClick={() => setPage("quotes")}>
-      📋 Quotes
-    </button>
+    <div className="dashboard-grid">
+      <button
+        className="dashboard-card"
+        type="button"
+        onClick={() => setPage("tiling")}
+      >
+        <span className="card-icon">🧮</span>
+        <strong>Tiling Calculator Pro</strong>
+        <small>Material and labour estimator</small>
+      </button>
 
-    <button onClick={() => setPage("jobs")}>
-      🏗 Jobs
-    </button>
+      <button
+        className="dashboard-card"
+        type="button"
+        onClick={() => setPage("quotes")}
+      >
+        <span className="card-icon">📋</span>
+        <strong>Quotes</strong>
+        <small>Create and manage quotes</small>
+      </button>
 
-    <button onClick={() => setPage("customers")}>
-      👥 Customers
-    </button>
+      <button
+        className="dashboard-card"
+        type="button"
+        onClick={() => setPage("jobs")}
+      >
+        <span className="card-icon">🏗️</span>
+        <strong>Jobs</strong>
+        <small>Manage active projects</small>
+      </button>
 
-    <button onClick={() => setPage("merchants")}>
-      🏪 Merchants
-    </button>
+      <button
+        className="dashboard-card"
+        type="button"
+        onClick={() => setPage("documents")}
+      >
+        <span className="card-icon">📄</span>
+        <strong>Documents</strong>
+        <small>RAMS and method statements</small>
+      </button>
+    </div>
 
-    <button onClick={() => setPage("ai")}>
-      🤖 AI Site Manager
-    </button>
-  </div>
+    <div className="recent-section">
+      <div className="section-heading">
+        <h3>Recent activity</h3>
+        <button type="button">View all</button>
+      </div>
 
-  <p style={{ marginTop: "30px" }}>
-    <strong>From quote to job.</strong><br />
-    Don't just build it. Build It Pro.
-  </p>
-</section>
-      )}
+      <div className="empty-state">
+        <p>No recent quotes or active jobs yet.</p>
+      </div>
+    </div>
+
+    <p className="dashboard-philosophy">
+      From quote to job.
+      <br />
+      <strong>Don’t just build it. Build It Pro.</strong>
+    </p>
+  </section>
+)}
 
       {page === "quotes" && (
         <section className="panel">
